@@ -36,14 +36,21 @@ function scoreFrom(issues) {
   return clamp(score);
 }
 
-// Which category an issue contributes to.
+// Which category an issue contributes to. Handles both static-analyzer types
+// (security | complexity | smell) and Gemini types
+// (security | complexity | style | documentation | performance).
 function categoryFor(issue) {
   if (!issue || typeof issue.type !== 'string') return null;
   switch (issue.type) {
     case 'security':
       return 'security';
     case 'complexity':
+    case 'performance': // perf problems are an efficiency/complexity concern
       return 'complexity';
+    case 'documentation':
+      return 'documentation';
+    case 'style':
+      return 'maintainability';
     case 'smell':
       // Comment-hygiene smells count toward documentation; the rest toward
       // maintainability.

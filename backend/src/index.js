@@ -12,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Environment variables loaded from .env
-const { GITHUB_TOKEN, ANTHROPIC_API_KEY } = process.env;
+const { GITHUB_TOKEN, GEMINI_API_KEY } = process.env;
 
 // --- Middleware ---
 app.use(cors());
@@ -41,8 +41,8 @@ app.listen(PORT, () => {
   if (!GITHUB_TOKEN) {
     console.warn('  [warn] GITHUB_TOKEN is not set — GitHub requests may be rate limited.');
   }
-  if (!ANTHROPIC_API_KEY) {
-    console.warn('  [warn] ANTHROPIC_API_KEY is not set — analysis endpoint will not work.');
+  if (!GEMINI_API_KEY) {
+    console.warn('  [warn] GEMINI_API_KEY is not set — AI analysis will be skipped (static-only).');
   }
 });
 
